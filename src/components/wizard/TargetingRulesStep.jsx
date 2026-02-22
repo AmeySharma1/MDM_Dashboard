@@ -43,7 +43,7 @@ const TargetingRulesStep = ({ data, onChange, errors }) => {
             <select
               value={selectedRegion}
               onChange={(e) => setSelectedRegion(e.target.value)}
-              className="flex-1 glass px-4 py-3 rounded-2xl border border-black/5 dark:border-white/5 outline-none text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500"
+              className="flex-1 glass px-2 py-1 rounded-2xl border border-black/5 dark:border-white/5 outline-none text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500"
             >
               <option value="" className="bg-white dark:bg-gray-900 text-gray-900 dark:text-white">Select Region...</option>
               {regions.filter(r => !data.selectedRegions.includes(r)).map(r => <option key={r} value={r} className="bg-white dark:bg-gray-900 text-gray-900 dark:text-white">{r}</option>)}
@@ -66,11 +66,11 @@ const TargetingRulesStep = ({ data, onChange, errors }) => {
             <h3 className="text-xs font-black uppercase tracking-[0.2em] text-gray-500 dark:text-gray-400">Asset Groups</h3>
             {errors.groups && <span className="text-[10px] font-black text-red-500 uppercase tracking-widest">{errors.groups}</span>}
           </div>
-          <div className="flex gap-2">
+          <div className="flex gap-1">
             <select
               value={selectedGroup}
               onChange={(e) => setSelectedGroup(e.target.value)}
-              className="flex-1 glass px-4 py-3 rounded-2xl border border-black/5 dark:border-white/5 outline-none text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500"
+              className="flex-1 glass px-1 py-1 rounded-2xl border border-black/5 dark:border-white/5 outline-none text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500"
             >
               <option value="" className="bg-white dark:bg-gray-900 text-gray-900 dark:text-white">Select Group...</option>
               {deviceGroups.filter(g => !data.selectedGroups.includes(g)).map(g => <option key={g} value={g} className="bg-white dark:bg-gray-900 text-gray-900 dark:text-white">{g}</option>)}
@@ -93,7 +93,7 @@ const TargetingRulesStep = ({ data, onChange, errors }) => {
         }`}>
         <div className="flex items-start justify-between relative z-10">
           <div className="flex gap-6">
-            <div className={`p-4 rounded-2xl ${data.excludeRisky ? 'bg-primary-500 text-white' : 'bg-white/10 text-gray-500'}`}>
+            <div>
               <FiShield className="w-8 h-8" />
             </div>
             <div>

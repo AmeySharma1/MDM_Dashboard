@@ -26,7 +26,7 @@ const ConfirmationModal = ({ isOpen, onClose, onConfirm, wizardData }) => {
             <p className="text-gray-400 mt-2 font-medium">Verify the mission parameters before final execution.</p>
           </div>
 
-          <div className="space-y-4">
+          <div className="space-y-4 ">
             {[
               { label: 'Asset Scope', value: `${wizardData.summary.affectedDevices} Devices`, color: 'text-gray-900 dark:text-white' },
               { label: 'Protocol', value: wizardData.rolloutStrategy.rolloutType.toUpperCase(), color: 'text-primary-400' },
@@ -34,13 +34,13 @@ const ConfirmationModal = ({ isOpen, onClose, onConfirm, wizardData }) => {
             ].map((row, i) => (
               <div key={i} className="flex justify-between py-4 border-b border-white/5">
                 <span className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-500">{row.label}</span>
-                <span className={`text-sm font-black uppercase tracking-widest ${row.color}`}>{row.value}</span>
+                <span className={`text-sm font-black uppercase tracking-widest pl-8 ${row.color}`}>{row.value}</span>
               </div>
             ))}
           </div>
 
-          <div className="flex gap-4 pt-4">
-            <Button variant="secondary" onClick={onClose} className="flex-1 py-4">Abort Mission</Button>
+          <div className="gap-2 pt-4">
+            <Button variant="secondary" onClick={onClose} className="flex-1 py-2   m-3">Abort Mission</Button>
             <Button
               variant={riskLevel === 'high' ? 'danger' : 'primary'}
               onClick={onConfirm}

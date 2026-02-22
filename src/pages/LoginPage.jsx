@@ -62,21 +62,21 @@ const LoginPage = () => {
                 <ThemeToggle className="bg-white/50 dark:bg-white/5 border border-black/5 dark:border-white/10 hover:border-black/10 dark:hover:border-white/20 p-4 rounded-2xl backdrop-blur-md transition-all duration-300 shadow-xl" />
             </div>
 
-            <div className="relative z-10 w-full max-w-xl px-4 flex flex-col items-center">
+            <div className="relative z-10 w-full max-w-xl px-4 sm:px-6 md:px-8 flex flex-col items-center">
                 {/* Futuristic Brand Identity */}
                 <div className="text-center mb-10 animate-in fade-in slide-in-from-top-10 duration-1000">
                     <div className="inline-flex relative mb-8 group">
                         <div className="absolute -inset-4 bg-gradient-to-r from-primary-600 to-blue-400 rounded-full blur-2xl opacity-20 group-hover:opacity-40 transition-opacity duration-700"></div>
-                        <div className="relative w-24 h-24 rounded-[2.5rem] bg-gradient-to-br from-primary-600 to-primary-400 p-[1px] shadow-[0_0_50px_rgba(59,130,246,0.3)]">
+                        <div className="relative w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-[1.5rem] sm:rounded-[2rem] md:rounded-[2.5rem] bg-gradient-to-br from-primary-600 to-primary-400 p-[1px] shadow-[0_0_30px_rgba(59,130,246,0.3)] sm:shadow-[0_0_40px_rgba(59,130,246,0.3)] md:shadow-[0_0_50px_rgba(59,130,246,0.3)]">
                             <div className="w-full h-full bg-white dark:bg-[#0a0a0f] rounded-[2.4rem] flex items-center justify-center">
-                                <FiShield className="w-11 h-11 text-primary-500 transform group-hover:scale-110 transition-transform duration-500" />
+                                <FiShield className="w-8 h-8 sm:w-9 sm:h-9 md:w-11 md:h-11 text-primary-500 transform group-hover:scale-110 transition-transform duration-500" />
                             </div>
                         </div>
                     </div>
-                    <h1 className="text-6xl font-black tracking-tighter italic mb-4 text-gray-900 dark:text-white">
+                    <h1 className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tighter italic mb-4 text-gray-900 dark:text-white">
                         MDM <span className="text-gradient">NETWORK</span>
                     </h1>
-                    <div className="flex items-center justify-center gap-4">
+                    <div className="flex items-center justify-center gap-2 sm:gap-4">
                         <div className="h-[1px] w-12 bg-gradient-to-r from-transparent to-primary-500/50"></div>
                         <p className="text-primary-600 dark:text-primary-500/80 font-black uppercase tracking-[0.5em] text-[10px]">Administrative Access Protocol</p>
                         <div className="h-[1px] w-12 bg-gradient-to-l from-transparent to-primary-500/50"></div>
@@ -88,7 +88,7 @@ const LoginPage = () => {
                     {/* External Card Border Glow */}
                     <div className="absolute -inset-[2px] bg-gradient-to-r from-primary-500/50 via-blue-500/20 to-primary-500/50 rounded-[3rem] blur-md opacity-10 dark:opacity-20 group-hover:opacity-30 dark:group-hover:opacity-40 transition-opacity duration-700"></div>
 
-                    <div className="bg-white/70 dark:bg-black/40 backdrop-blur-3xl p-12 rounded-[3.5rem] border border-black/5 dark:border-white/10 shadow-2xl relative overflow-hidden">
+                    <div className="bg-white/70 dark:bg-black/40 backdrop-blur-3xl p-6 sm:p-8 md:p-12 rounded-[2rem] sm:rounded-[2.5rem] md:rounded-[3.5rem] border border-black/5 dark:border-white/10 shadow-2xl relative overflow-hidden">
                         {/* Dynamic Card Internal Effects */}
                         <div className="absolute top-0 right-0 w-64 h-64 bg-primary-500/5 rounded-full blur-3xl -mr-32 -mt-32"></div>
                         <div className="absolute bottom-0 left-0 w-64 h-64 bg-blue-500/5 rounded-full blur-3xl -ml-32 -mb-32"></div>
@@ -97,14 +97,14 @@ const LoginPage = () => {
                         <div className="mb-10 pb-8 border-b border-black/10 dark:border-white/5 relative">
                             <p className="text-[10px] font-black text-primary-600 dark:text-primary-500/60 uppercase tracking-[0.4em] mb-6 text-center italic">Administrative Passwords</p>
 
-                            <div className="grid grid-cols-2 gap-4 px-2">
-                                <div className="p-4 bg-black/[0.04] dark:bg-white/[0.02] rounded-2xl border border-black/10 dark:border-white/5 group/hint hover:border-primary-500/20 transition-all duration-500 text-center">
-                                    <p className="text-[8px] font-black text-gray-500 uppercase tracking-widest mb-1 opacity-100 dark:opacity-60">Username</p>
-                                    <p className="text-xs font-black text-primary-600 dark:text-primary-500 tracking-wider group-hover:text-gray-900 dark:group-hover:text-white transition-colors">Admin</p>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 px-0 sm:px-2">
+                                <div className="p-3 sm:p-4 bg-black/[0.04] dark:bg-white/[0.02] rounded-xl sm:rounded-2xl border border-black/10 dark:border-white/5 group/hint hover:border-primary-500/20 transition-all duration-500 text-center">
+                                    <p className="text-[7px] sm:text-[8px] font-black text-gray-500 uppercase tracking-widest mb-1 opacity-100 dark:opacity-60">Username</p>
+                                    <p className="text-[10px] sm:text-xs font-black text-primary-600 dark:text-primary-500 tracking-wider group-hover:text-gray-900 dark:group-hover:text-white transition-colors">Admin</p>
                                 </div>
-                                <div className="p-4 bg-black/[0.04] dark:bg-white/[0.02] rounded-2xl border border-black/10 dark:border-white/5 group/hint hover:border-primary-500/20 transition-all duration-500 text-center">
-                                    <p className="text-[8px] font-black text-gray-500 uppercase tracking-widest mb-1 opacity-100 dark:opacity-60">Password</p>
-                                    <p className="text-xs font-black text-primary-600 dark:text-primary-500 tracking-wider group-hover:text-gray-900 dark:group-hover:text-white transition-colors">Admin123</p>
+                                <div className="p-3 sm:p-4 bg-black/[0.04] dark:bg-white/[0.02] rounded-xl sm:rounded-2xl border border-black/10 dark:border-white/5 group/hint hover:border-primary-500/20 transition-all duration-500 text-center">
+                                    <p className="text-[7px] sm:text-[8px] font-black text-gray-500 uppercase tracking-widest mb-1 opacity-100 dark:opacity-60">Password</p>
+                                    <p className="text-[10px] sm:text-xs font-black text-primary-600 dark:text-primary-500 tracking-wider group-hover:text-gray-900 dark:group-hover:text-white transition-colors">Admin123</p>
                                 </div>
                             </div>
                         </div>
@@ -121,15 +121,15 @@ const LoginPage = () => {
 
                             <div className="space-y-6">
                                 <div className="relative group/input">
-                                    <span className="absolute left-6 top-1/2 -translate-y-1/2 text-gray-500 group-focus-within/input:text-primary-500 transition-colors duration-300">
-                                        <FiUser className="w-5 h-5" />
+                                    <span className="absolute left-4 sm:left-6 top-1/2 -translate-y-1/2 text-gray-500 group-focus-within/input:text-primary-500 transition-colors duration-300">
+                                        <FiUser className="w-4 h-4 sm:w-5 sm:h-5" />
                                     </span>
                                     <input
                                         type="text"
                                         placeholder="Username (Admin)"
                                         value={username}
                                         onChange={(e) => setUsername(e.target.value)}
-                                        className="w-full pl-16 pr-8 py-6 bg-black/[0.02] dark:bg-white/[0.03] border border-black/5 dark:border-white/5 focus:border-primary-500/40 rounded-2xl text-gray-900 dark:text-white placeholder-gray-400 outline-none transition-all focus:ring-8 focus:ring-primary-500/5 group-hover/input:bg-black/[0.04] dark:group-hover/input:bg-white/[0.05] font-black tracking-widest text-xs"
+                                        className="w-full pl-12 sm:pl-16 pr-6 sm:pr-8 py-4 sm:py-6 bg-black/[0.02] dark:bg-white/[0.03] border border-black/5 dark:border-white/5 focus:border-primary-500/40 rounded-xl sm:rounded-2xl text-gray-900 dark:text-white placeholder-gray-400 outline-none transition-all focus:ring-4 sm:focus:ring-8 focus:ring-primary-500/5 group-hover/input:bg-black/[0.04] dark:group-hover/input:bg-white/[0.05] font-black tracking-widest text-[10px] sm:text-xs"
                                         required
                                         autoComplete="off"
                                     />
@@ -139,44 +139,44 @@ const LoginPage = () => {
                                 </div>
 
                                 <div className="relative group/input">
-                                    <span className="absolute left-6 top-1/2 -translate-y-1/2 text-gray-500 group-focus-within/input:text-primary-500 transition-colors duration-300">
-                                        <FiLock className="w-5 h-5" />
+                                    <span className="absolute left-4 sm:left-6 top-1/2 -translate-y-1/2 text-gray-500 group-focus-within/input:text-primary-500 transition-colors duration-300">
+                                        <FiLock className="w-4 h-4 sm:w-5 sm:h-5" />
                                     </span>
                                     <input
                                         type={showPassword ? "text" : "password"}
                                         placeholder="Password (Admin123)"
                                         value={password}
                                         onChange={(e) => setPassword(e.target.value)}
-                                        className="w-full pl-16 pr-14 py-6 bg-black/[0.02] dark:bg-white/[0.03] border border-black/5 dark:border-white/5 focus:border-primary-500/40 rounded-2xl text-gray-900 dark:text-white placeholder-gray-400 outline-none transition-all focus:ring-8 focus:ring-primary-500/5 group-hover/input:bg-black/[0.04] dark:group-hover/input:bg-white/[0.05] font-black tracking-widest text-xs"
+                                        className="w-full pl-12 sm:pl-16 pr-12 sm:pr-14 py-4 sm:py-6 bg-black/[0.02] dark:bg-white/[0.03] border border-black/5 dark:border-white/5 focus:border-primary-500/40 rounded-xl sm:rounded-2xl text-gray-900 dark:text-white placeholder-gray-400 outline-none transition-all focus:ring-4 sm:focus:ring-8 focus:ring-primary-500/5 group-hover/input:bg-black/[0.04] dark:group-hover/input:bg-white/[0.05] font-black tracking-widest text-[10px] sm:text-xs"
                                         required
                                     />
                                     <button
                                         type="button"
                                         onClick={() => setShowPassword(!showPassword)}
-                                        className="absolute right-6 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white transition-colors"
+                                        className="absolute right-4 sm:right-6 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white transition-colors"
                                     >
-                                        {showPassword ? <FiEyeOff className="w-5 h-5" /> : <FiEye className="w-5 h-5" />}
+                                        {showPassword ? <FiEyeOff className="w-4 h-4 sm:w-5 sm:h-5" /> : <FiEye className="w-4 h-4 sm:w-5 sm:h-5" />}
                                     </button>
                                 </div>
                             </div>
 
                             <div className="relative group/btn">
-                                <div className="absolute -inset-1 bg-gradient-to-r from-primary-600 to-blue-400 rounded-2xl blur opacity-30 group-hover/btn:opacity-60 transition-opacity duration-500"></div>
+                                <div className="absolute -inset-1 bg-gradient-to-r from-primary-600 to-blue-400 rounded-xl sm:rounded-2xl blur opacity-30 group-hover/btn:opacity-60 transition-opacity duration-500"></div>
                                 <button
                                     type="submit"
                                     disabled={isSubmitting}
-                                    className="relative w-full py-6 rounded-2xl bg-white dark:bg-[#0a0a0f] border border-primary-500/30 text-gray-900 dark:text-white font-black uppercase tracking-[0.4em] text-xs transition-all hover:bg-primary-500/10 flex items-center justify-center gap-4 group-hover/btn:border-primary-500/60 shadow-xl"
+                                    className="relative w-full py-4 sm:py-6 rounded-xl sm:rounded-2xl bg-white dark:bg-[#0a0a0f] border border-primary-500/30 text-gray-900 dark:text-white font-black uppercase tracking-[0.2em] sm:tracking-[0.4em] text-[9px] sm:text-xs transition-all hover:bg-primary-500/10 flex items-center justify-center gap-2 sm:gap-4 group-hover/btn:border-primary-500/60 shadow-xl"
                                 >
                                     {isSubmitting ? (
                                         <>
-                                            <FiActivity className="animate-spin w-5 h-5 text-primary-500" />
+                                            <FiActivity className="animate-spin w-4 h-4 sm:w-5 sm:h-5 text-primary-500" />
                                             SYSTEM HANDSHAKE...
                                         </>
                                     ) : (
                                         <>
-                                            <span className="group-hover:translate-x-1 transition-transform duration-500 flex items-center gap-4">
+                                            <span className="group-hover:translate-x-1 transition-transform duration-500 flex items-center gap-2 sm:gap-4">
                                                 Initialize Terminal
-                                                <FiArrowRight className="w-5 h-5 text-primary-500" />
+                                                <FiArrowRight className="w-4 h-4 sm:w-5 sm:h-5 text-primary-500" />
                                             </span>
                                         </>
                                     )}

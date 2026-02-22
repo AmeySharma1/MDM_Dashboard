@@ -66,18 +66,18 @@ const ReviewConfirmStep = ({ wizardData, setWizardData }) => {
         ))}
       </div>
 
-      <div className="glass p-8 rounded-[2rem] border border-gray-200 dark:border-gray-800 space-y-8">
+      <div className="glass p-4 rounded-[1rem] border border-gray-200 dark:border-gray-800 space-y-8">
         <div className="flex flex-col lg:flex-row gap-12">
           <div className="flex-1 space-y-6">
             <h4 className="text-xs font-black uppercase tracking-[0.2em] text-gray-700 dark:text-gray-300">Target Configuration</h4>
             <div className="space-y-4">
               <div className="flex justify-between items-center py-3 border-b border-gray-200 dark:border-gray-800">
                 <span className="text-sm font-medium text-gray-500 dark:text-gray-400">Version Transition</span>
-                <span className="text-sm font-black text-gray-900 dark:text-white">{wizardData.versionSelection.fromVersion} → {wizardData.versionSelection.toVersion}</span>
+                <span className="text-sm font-black text-gray-900 dark:text-white pl-4">{wizardData.versionSelection.fromVersion} → {wizardData.versionSelection.toVersion}</span>
               </div>
               <div className="flex justify-between items-center py-3 border-b border-gray-200 dark:border-gray-800">
                 <span className="text-sm font-medium text-gray-500 dark:text-gray-400">Deployment Window</span>
-                <span className="text-sm font-black text-gray-900 dark:text-white uppercase tracking-wider">{summary.scheduleInfo}</span>
+                <span className="text-sm font-black text-gray-900 dark:text-white uppercase tracking-wider pl-4">{summary.scheduleInfo}</span>
               </div>
             </div>
           </div>

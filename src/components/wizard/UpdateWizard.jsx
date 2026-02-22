@@ -17,7 +17,6 @@ const UpdateWizard = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Initialize wizard data from context
   const [localWizardData, setLocalWizardData] = useState(contextWizardData || {
     versionSelection: {
       fromVersion: '',
@@ -31,7 +30,7 @@ const UpdateWizard = () => {
       excludeRisky: false
     },
     rolloutStrategy: {
-      rolloutType: 'immediate', // immediate, scheduled, phased
+      rolloutType: 'immediate',
       scheduledDate: '',
       scheduledTime: '',
       phasePercentage: 25
@@ -44,26 +43,18 @@ const UpdateWizard = () => {
     }
   });
 
-  // Sync local state with context when context changes
   useEffect(() => {
     if (contextWizardData) {
       setLocalWizardData(contextWizardData);
     }
   }, [contextWizardData]);
 
-  // Sync local state to context when it changes
   useEffect(() => {
     setContextWizardData(localWizardData);
   }, [localWizardData, setContextWizardData]);
 
-  // Reset wizard when navigating away and returning
   useEffect(() => {
-    const handleRouteChange = () => {
-      // Reset to first step when navigating away
-      setCurrentStep(0);
-    };
-
-    return handleRouteChange;
+    return () => setCurrentStep(0);
   }, [location]);
 
   const [validationErrors, setValidationErrors] = useState({});
@@ -77,59 +68,24 @@ const UpdateWizard = () => {
 
   const validateStep = (stepIndex) => {
     const errors = {};
-
     switch (stepIndex) {
-      case 0: // Version Selection
-        if (!localWizardData.versionSelection.fromVersion) {
-          errors.fromVersion = 'From version is required';
-        }
-        if (!localWizardData.versionSelection.toVersion) {
-          errors.toVersion = 'To version is required';
-        }
-        if (localWizardData.versionSelection.fromVersion && localWizardData.versionSelection.toVersion) {
-          // Prevent downgrading
-          const fromVersion = parseFloat(localWizardData.versionSelection.fromVersion.split(' ')[1]);
-          const toVersion = parseFloat(localWizardData.versionSelection.toVersion.split(' ')[1]);
-          if (toVersion < fromVersion) {
-            errors.version = 'Downgrading OS version is not allowed';
-          }
-          // Check if compatibility check has been done and passed
-          if (localWizardData.versionSelection.isCompatible === false) {
-            errors.compatibility = 'Selected versions are not compatible';
-          }
-          // Don't allow proceeding if compatibility check is still running
-          if (localWizardData.versionSelection.isCompatible === null &&
-            localWizardData.versionSelection.fromVersion &&
-            localWizardData.versionSelection.toVersion) {
-            errors.compatibility = 'Please wait for compatibility check to complete';
-          }
-        }
+      case 0:
+        if (!localWizardData.versionSelection.fromVersion) errors.fromVersion = 'From version is required';
+        if (!localWizardData.versionSelection.toVersion) errors.toVersion = 'To version is required';
         break;
-
-      case 1: // Targeting Rules
-        if (localWizardData.targetingRules.selectedRegions.length === 0) {
-          errors.regions = 'At least one region must be selected';
-        }
-        if (localWizardData.targetingRules.selectedGroups.length === 0) {
-          errors.groups = 'At least one device group must be selected';
-        }
+      case 1:
+        if (localWizardData.targetingRules.selectedRegions.length === 0) errors.regions = 'At least one region must be selected';
+        if (localWizardData.targetingRules.selectedGroups.length === 0) errors.groups = 'At least one device group must be selected';
         break;
-
-      case 2: // Rollout Strategy
+      case 2:
         if (localWizardData.rolloutStrategy.rolloutType === 'scheduled') {
-          if (!localWizardData.rolloutStrategy.scheduledDate) {
-            errors.date = 'Scheduled date is required';
-          }
-          if (!localWizardData.rolloutStrategy.scheduledTime) {
-            errors.time = 'Scheduled time is required';
-          }
+          if (!localWizardData.rolloutStrategy.scheduledDate) errors.date = 'Scheduled date is required';
+          if (!localWizardData.rolloutStrategy.scheduledTime) errors.time = 'Scheduled time is required';
         }
         break;
-
       default:
         break;
     }
-
     return errors;
   };
 
@@ -139,7 +95,6 @@ const UpdateWizard = () => {
       setValidationErrors(errors);
       return;
     }
-
     setValidationErrors({});
     if (currentStep < steps.length - 1) {
       const newStep = currentStep + 1;
@@ -161,145 +116,75 @@ const UpdateWizard = () => {
   const { updateDevicesForRollout } = useDeviceContext();
 
   const handleConfirm = () => {
-    // Handle final confirmation and submission
-    console.log('Update scheduled:', localWizardData);
-
-    // Create rollout with proper OS version synchronization
     updateDevicesForRollout(localWizardData);
-
     setIsModalOpen(false);
-
-    // Reset wizard after successful scheduling
     setCurrentStep(0);
     setContextWizardStep(0);
-    setLocalWizardData({
-      versionSelection: {
-        fromVersion: '',
-        toVersion: '',
-        isCompatible: null,
-        compatibilityMessage: ''
-      },
-      targetingRules: {
-        selectedRegions: [],
-        selectedGroups: [],
-        excludeRisky: false
-      },
-      rolloutStrategy: {
-        rolloutType: 'immediate',
-        scheduledDate: '',
-        scheduledTime: '',
-        phasePercentage: 25
-      },
-      summary: {
-        totalDevices: 0,
-        affectedDevices: 0,
-        rolloutType: '',
-        scheduleInfo: ''
-      }
-    });
-
-    // Navigate to active rollout monitor to show the created rollout
     navigate('/active-monitor');
   };
 
   const getStepContent = () => {
     switch (currentStep) {
       case 0:
-        return (
-          <VersionSelectionStep
-            data={localWizardData.versionSelection}
-            onChange={(data) => setLocalWizardData(prev => ({
-              ...prev,
-              versionSelection: data
-            }))}
-            errors={validationErrors}
-          />
-        );
+        return <VersionSelectionStep data={localWizardData.versionSelection} onChange={(data) => setLocalWizardData(prev => ({ ...prev, versionSelection: data }))} errors={validationErrors} />;
       case 1:
-        return (
-          <TargetingRulesStep
-            data={localWizardData.targetingRules}
-            onChange={(data) => setLocalWizardData(prev => ({
-              ...prev,
-              targetingRules: data
-            }))}
-            errors={validationErrors}
-          />
-        );
+        return <TargetingRulesStep data={localWizardData.targetingRules} onChange={(data) => setLocalWizardData(prev => ({ ...prev, targetingRules: data }))} errors={validationErrors} />;
       case 2:
-        return (
-          <RolloutStrategyStep
-            data={localWizardData.rolloutStrategy}
-            onChange={(data) => setLocalWizardData(prev => ({
-              ...prev,
-              rolloutStrategy: data
-            }))}
-            errors={validationErrors}
-          />
-        );
+        return <RolloutStrategyStep data={localWizardData.rolloutStrategy} onChange={(data) => setLocalWizardData(prev => ({ ...prev, rolloutStrategy: data }))} errors={validationErrors} />;
       case 3:
-        return (
-          <ReviewConfirmStep
-            wizardData={localWizardData}
-            setWizardData={setLocalWizardData}
-          />
-        );
+        return <ReviewConfirmStep wizardData={localWizardData} setWizardData={setLocalWizardData} />;
       default:
         return null;
     }
   };
 
   return (
-    <div className="max-w-5xl mx-auto space-y-8">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-4xl font-black text-gray-900 dark:text-white tracking-tight">
-            Deployment <span className="text-gradient">Wizard</span>
-          </h1>
-          <p className="mt-2 text-gray-500 dark:text-gray-400 font-medium">
-            Step-by-step update schedule system
-          </p>
-        </div>
-
-        <div className="hidden md:flex items-center gap-2 glass px-4 py-2 rounded-2xl border border-black/5 dark:border-white/5">
-          <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
-          <span className="text-[10px] font-black text-gray-500 dark:text-gray-400 uppercase tracking-widest">System Ready</span>
-        </div>
+    <div className="w-full max-w-5xl mx-auto space-y-6 sm:space-y-8 px-2 sm:px-6">
+      <div>
+        <h1 className="pt-4 pl-1 text-xl sm:text-2xl md:text-3xl font-black text-gray-900 dark:text-white tracking-tight">
+          Deployment <span className="text-gradient">Wizard</span>
+        </h1>
+        <p className="mt-2 text-gray-500 dark:text-gray-400 font-medium pl-1">
+          Step-by-step update schedule system
+        </p>
       </div>
 
-      {/* Enhanced Progress Steps */}
-      <div className="glass p-6 rounded-[2rem] border border-white/5">
-        <div className="flex items-start justify-between relative max-w-4xl mx-auto px-4">
+      {/* ===== FIXED PROGRESS STEPPER ===== */}
+      <div className="glass p-2 sm:p-6 rounded-[1.5rem] sm:rounded-[2rem] border border-white/5 overflow-x-auto">
+        <div className="flex items-start justify-between gap-3 sm:gap-0 relative max-w-4xl mx-auto px-2 sm:px-4 min-w-[320px]">
           {steps.map((step, index) => {
             const isActive = index === currentStep;
             const isCompleted = index < currentStep;
+
             return (
               <div key={step.id} className="flex flex-col items-center relative z-10">
                 <div
-                  className={`w-12 h-12 rounded-2xl flex items-center justify-center transition-all duration-500 border-2 ${isActive
-                    ? 'bg-primary-500/20 border-primary-500 shadow-[0_0_20px_rgba(59,130,246,0.5)] scale-110'
-                    : isCompleted
+                  className={`w-8 h-8 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl flex items-center justify-center transition-all duration-500 border-2 ${
+                    isActive
+                      ? 'bg-primary-500/20 border-primary-500 scale-110'
+                      : isCompleted
                       ? 'bg-primary-500 text-white border-primary-500'
-                      : 'bg-black/5 dark:bg-white/5 text-gray-400 dark:text-gray-600 border-black/10 dark:border-white/10'
-                    }`}
+                      : 'bg-black/5 dark:bg-white/5 text-gray-400 border-black/10 dark:border-white/10'
+                  }`}
                 >
-                  {isCompleted ? <FiCheck className="w-6 h-6" /> : (
-                    <span className={`text-lg font-black ${isActive ? 'text-primary-500' : 'text-gray-500'}`}>
+                  {isCompleted ? <FiCheck className="w-5 h-5 sm:w-6 sm:h-6" /> : (
+                    <span className={`text-base sm:text-lg font-black ${isActive ? 'text-primary-500' : 'text-gray-500'}`}>
                       {step.icon}
                     </span>
                   )}
                 </div>
-                <div className="mt-4 text-center">
-                  <span className={`text-[10px] font-black uppercase tracking-[0.2em] transition-colors duration-300 ${isActive ? 'text-primary-500' : 'text-gray-500 dark:text-gray-500'
-                    }`}>
-                    {step.title}
-                  </span>
-                </div>
 
-                {/* Connector line - simplified logic for better visual integration */}
+                <span className={`mt-3 text-[8px] sm:text-[10px] whitespace-nowrap font-black ${isActive ? 'text-primary-500' : 'text-gray-500'}`}>
+                  {step.title}
+                </span>
+
+                {/* FIXED CONNECTOR */}
                 {index < steps.length - 1 && (
-                  <div className={`absolute top-6 left-[calc(100%-1rem)] w-[calc(220%-2rem)] h-0.5 -z-10 transition-colors duration-500 ${index < currentStep ? 'bg-primary-500' : 'bg-white/10'
-                    }`}></div>
+                  <div
+                    className={`absolute top-1/2 left-full hidden sm:block w-full h-0.5 -translate-y-1/2 transition-colors duration-500 ${
+                      index < currentStep ? 'bg-primary-500' : 'bg-white/10'
+                    }`}
+                  ></div>
                 )}
               </div>
             );
@@ -307,46 +192,20 @@ const UpdateWizard = () => {
         </div>
       </div>
 
-      {/* Wizard Content Content */}
-      <div className="relative group">
-        <div className="absolute -inset-1 bg-gradient-to-r from-primary-600 to-primary-400 opacity-20 blur-2xl group-hover:opacity-30 transition duration-1000"></div>
-        <Card className="relative p-0 overflow-hidden ring-1 ring-white/5">
-          <div className="p-10">
-            {getStepContent()}
-          </div>
-        </Card>
-      </div>
+      <Card className="p-4 sm:p-6 md:p-8 lg:p-10">
+        {getStepContent()}
+      </Card>
 
-      {/* High-Impact Navigation Bar */}
-      <div className="flex justify-between items-center bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/5 backdrop-blur-xl p-4 rounded-3xl">
-        <Button
-          variant="secondary"
-          onClick={handleBack}
-          disabled={currentStep === 0}
-          className="px-8"
-        >
+      <div className="flex flex-col sm:flex-row justify-between items-center gap-4 bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/5 backdrop-blur-xl p-3 sm:p-4 rounded-2xl sm:rounded-3xl">
+        <Button variant="secondary" onClick={handleBack} disabled={currentStep === 0} className="px-6 sm:px-8 py-2">
           <FiArrowLeft className="w-4 h-4 mr-2" />
           Previous Step
         </Button>
 
-        <div className="flex items-center gap-6">
-          <div className="hidden lg:flex items-center gap-2">
-            <span className="text-[10px] font-black text-gray-500 uppercase tracking-widest">Step {currentStep + 1} of {steps.length}</span>
-            <div className="flex gap-1">
-              {[0, 1, 2, 3].map(i => (
-                <div key={i} className={`w-1.5 h-1.5 rounded-full ${i === currentStep ? 'bg-primary-500' : 'bg-white/10'}`}></div>
-              ))}
-            </div>
-          </div>
-
-          <Button
-            onClick={handleNext}
-            className="px-10 shadow-[0_0_30px_rgba(59,130,246,0.3)] hover:shadow-primary-500/50"
-          >
-            {currentStep === steps.length - 1 ? 'Execute Rollout' : 'Continue'}
-            {currentStep < steps.length - 1 && <FiArrowRight className="w-4 h-4 ml-2" />}
-          </Button>
-        </div>
+        <Button onClick={handleNext} className="px-4 sm:px-6 md:px-8 py-2">
+          {currentStep === steps.length - 1 ? 'Execute Rollout' : 'Continue'}
+          {currentStep < steps.length - 1 && <FiArrowRight className="w-4 h-4 ml-2" />}
+        </Button>
       </div>
 
       <ConfirmationModal

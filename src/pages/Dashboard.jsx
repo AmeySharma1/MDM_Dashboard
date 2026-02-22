@@ -100,24 +100,24 @@ const Dashboard = () => {
               </div>
             }
           >
-            <div className="space-y-4">
+            <div className="space-y-3 sm:space-y-4">
               {recentDevices.map((device) => (
-                <div key={device.id} className="group flex items-center justify-between p-6 glass-header hover:bg-white/[0.04] border border-white/5 rounded-3xl transition-all duration-500 cursor-pointer">
-                  <div className="flex items-center space-x-6">
-                    <div className="w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center border border-white/5 group-hover:scale-110 group-hover:border-primary-500/30 transition-all duration-500">
-                      <FiMonitor className="w-6 h-6 text-gray-400 group-hover:text-primary-500" />
+                <div key={device.id} className="group flex flex-col sm:flex-row sm:items-center justify-between p-4 sm:p-6 glass-header hover:bg-white/[0.04] border border-white/5 rounded-2xl sm:rounded-3xl transition-all duration-500 cursor-pointer">
+                  <div className="flex items-center space-x-4 sm:space-x-6 mb-3 sm:mb-0">
+                    <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-white/5 flex items-center justify-center border border-white/5 group-hover:scale-110 group-hover:border-primary-500/30 transition-all duration-500">
+                      <FiMonitor className="w-5 h-5 sm:w-6 sm:h-6 text-gray-400 group-hover:text-primary-500" />
                     </div>
                     <div>
-                      <h3 className="font-black text-gray-900 dark:text-white text-lg tracking-tight uppercase">{device.name}</h3>
-                      <p className="text-[10px] font-black text-gray-500 dark:text-gray-400 uppercase tracking-widest mt-1">{device.os} • CLUSTER_A</p>
+                      <h3 className="font-black text-gray-900 dark:text-white text-base sm:text-lg tracking-tight uppercase">{device.name}</h3>
+                      <p className="text-[9px] sm:text-[10px] font-black text-gray-500 dark:text-gray-400 uppercase tracking-widest mt-1">{device.os} • CLUSTER_A</p>
                     </div>
                   </div>
-                  <div className="flex items-center space-x-6 text-right">
-                    <div className="space-y-1">
-                      <Badge variant={statusVariants[device.status] || 'default'}>
+                  <div className="flex items-center sm:space-x-6 text-right sm:text-left w-full sm:w-auto">
+                    <div className="space-y-1 flex-shrink-0">
+                      <Badge variant={statusVariants[device.status] || 'default'} className="text-xs sm:text-sm whitespace-nowrap">
                         {device.status}
                       </Badge>
-                      <p className="text-[9px] font-black text-gray-500 dark:text-gray-500 uppercase tracking-widest italic">{device.lastSeen}</p>
+                      <p className="text-[8px] sm:text-[9px] font-black text-gray-500 dark:text-gray-500 uppercase tracking-widest italic whitespace-nowrap">{device.lastSeen}</p>
                     </div>
                   </div>
                 </div>
